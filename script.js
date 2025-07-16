@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const selectElement = formElements[key];
 
                 if (selectElement instanceof HTMLSelectElement) {
-                    selectElement.value = randomOptionKey;
+                    selectElement.value = item.options[randomOptionKey]; // FIX: Set the value to the English value from the data object, not the Japanese key.
                     selectElement.dispatchEvent(new Event('change')); // プログラムによる変更でもchangeイベントを発火
                     // 「その他」が選択された場合はカスタム入力もランダムに
                     const customInput = document.getElementById(`${key}-custom`);
