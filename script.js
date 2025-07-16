@@ -64,6 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 'ゴスロリ': 'gothic lolita dress',
                 'セーラー服': 'sailor uniform',
+                'メイド服': 'maid outfit',
+                'ギャル': 'gyaru style',
+                'ふわもこパジャマ': 'fluffy pajamas',
+                'クラシカルドレス': 'classical dress',
                 'チャイナドレス': 'cheongsam',
             },
             default: 'ゴスロリ',
