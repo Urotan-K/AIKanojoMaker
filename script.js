@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (relationshipPrompt) imagePrompt += `, ${relationshipPrompt}`; 
         if (timeOfDayPrompt) imagePrompt += `, ${timeOfDayPrompt}`; 
         if (translatedCustom) imagePrompt += `, ${translatedCustom}`; 
-        imagePrompt += `, highly detailed, anime style.`;
+        imagePrompt += `, highly detailed, anime style. 描いてください`;
 
         imagePromptOutput.value = imagePrompt;
     }
@@ -532,6 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (selectElement instanceof HTMLSelectElement) {
                     selectElement.value = randomOptionKey;
+                    selectElement.dispatchEvent(new Event('change')); // プログラムによる変更でもchangeイベントを発火
                     // 「その他」が選択された場合はカスタム入力もランダムに
                     const customInput = document.getElementById(`${key}-custom`);
                     if (randomOptionKey === 'other' && customInput) {
