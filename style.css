@@ -181,3 +181,56 @@ footer {
     padding: 0;
     vertical-align: middle;
 }
+
+/* すべてのリンクのデフォルト色 */
+a {
+    color: #007bff; /* 青色 */
+    text-decoration: none; /* 下線をなくす */
+}
+
+/* 訪れた後のリンクの色 */
+a:visited {
+    color: #007bff; /* 訪れた後も同じ青色 */
+}
+
+/* ホバー時のリンクの色 */
+a:hover {
+    text-decoration: underline; /* ホバー時に下線を表示 */
+}
+
+/* ヘッダー内のリンクの色 */
+header h1 a {
+    color: #fff; /* ヘッダー内のリンクは白色 */
+    text-decoration: none;
+}
+
+header h1 a:visited {
+    color: #fff; /* ヘッダー内のリンクは訪れた後も白色 */
+}
+
+header h1 a:hover {
+    text-decoration: underline;
+}
+
+/* フッター内のナビゲーションリンクの色 */
+footer nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* リンク間のスペース */
+}
+
+footer nav ul li a {
+    color: #777; /* フッターのテキスト色に合わせる */
+    text-decoration: none;
+}
+
+footer nav ul li a:visited {
+    color: #777;
+}
+
+footer nav ul li a:hover {
+    text-decoration: underline;
+}
