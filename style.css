@@ -1,0 +1,183 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    max-width: 1200px; /* 最大幅を設定 */
+    margin: 0 auto; /* 中央寄せ */
+}
+
+@media (max-width: 768px) {
+    main {
+        max-width: none; /* スマホでは最大幅を解除 */
+        margin: 0; /* スマホでは中央寄せを解除 */
+        padding: 10px; /* スマホでのパディング調整 */
+    }
+
+    #input-form,
+    #output-prompts {
+        flex: 1 1 100%; /* スマホでは1カラムにする */
+        margin-right: 0;
+        position: static; /* スマホではstickyを解除 */
+        top: auto; /* スマホではtopを解除 */
+    }
+}
+
+section {
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#input-form {
+    flex: 3; /* メインの入力フォームを広く */
+    min-width: 400px;
+    margin-right: 20px; /* プロンプト表示との間に余白 */
+}
+
+#output-prompts {
+    flex: 1; /* プロンプト表示部分を狭く */
+    min-width: 300px;
+    position: sticky; /* スクロールしても追従 */
+    top: 20px; /* 上から20pxの位置で固定 */
+    align-self: flex-start; /* flexアイテム内で上部に揃える */
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: bold;
+    color: #555;
+    padding: 0 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select,
+input[type="text"],
+textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.custom-input {
+    margin-top: 5px;
+    display: none; /* 初期状態では非表示 */
+}
+
+.slider-group {
+    margin-top: 20px;
+}
+
+.slider-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider-group input[type="range"] {
+    width: calc(100% * 2 / 3); /* 幅を2/3に */
+    margin-top: 10px;
+}
+
+.checkbox-group label {
+    display: inline-block;
+    margin-right: 15px;
+    font-weight: normal;
+}
+
+.info-icon {
+    cursor: help;
+    color: #007bff;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.prompt-group h3 {
+    margin-top: 0;
+    color: #555;
+}
+
+.prompt-group textarea {
+    width: calc(100% - 22px);
+    height: 200px;
+    resize: vertical;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    font-family: 'Courier New', monospace;
+}
+
+.copy-button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+footer {
+    text-align: center;
+    padding: 1em 0;
+    color: #777;
+    font-size: 0.9em;
+    margin-top: 20px;
+}
+
+.color-picker {
+    margin-left: 10px;
+    width: 50px;
+    height: 30px;
+    border: none;
+    padding: 0;
+    vertical-align: middle;
+}
