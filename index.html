@@ -39,303 +39,321 @@
 
     <main>
         <section id="input-form">
-            <fieldset>
-                <legend>外見（ビジュアル）</legend>
-                <div class="form-group">
-                    <label for="ears">耳の種類 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
-                    <select id="ears">
-                        <option value="fox ears">狐耳</option>
-                        <option value="cat ears">猫耳</option>
-                        <option value="rabbit ears">うさ耳</option>
-                        <option value="none">なし</option>
+            <fieldset class="accordion">
+                <legend class="accordion-header">外見（ビジュアル）</legend>
+                <div class="accordion-content">
+                    <div class="form-group">
+                        <label for="char-name">名前</label>
+                        <input type="text" id="char-name" placeholder="例: さくら">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ears">耳の種類 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
+                        <select id="ears">
+                            <option value="fox ears">狐耳</option>
+                            <option value="cat ears">猫耳</option>
+                            <option value="rabbit ears">うさ耳</option>
+                            <option value="none">なし</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="ears-custom" class="custom-input" placeholder="例: 悪魔の角">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="outfit">服装 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
+                        <select id="outfit">
+                            <option value="gothic lolita dress">ゴスロリ</option>
+                            <option value="sailor uniform">セーラー服</option>
+                            <option value="maid outfit">メイド服</option>
+                            <option value="gyaru style">ギャル</option>
+                            <option value="fluffy pajamas">ふわもこパジャマ</option>
+                            <option value="classical dress">クラシカルドレス</option>
+                            <option value="cheongsam">チャイナドレス</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="outfit-custom" class="custom-input" placeholder="例: メイド服">
+                    </div>
+
+                    <div class="form-group slider-group">
+                        <label for="body-size">身長の高さ: <span id="body-size-value">普通</span></label>
+                        <input type="range" id="body-size" min="1" max="5" value="3">
+                    </div>
+
+                    <div class="form-group slider-group">
+                        <label for="breast-size">胸の大きさ: <span id="breast-size-value">普通</span></label>
+                        <input type="range" id="breast-size" min="1" max="5" value="3">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eye-color">目の色 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
+                        <select id="eye-color">
+                            <option value="red eyes">赤</option>
+                            <option value="blue eyes">青</option>
+                            <option value="green eyes">緑</option>
+                            <option value="brown eyes">茶</option>
+                            <option value="black eyes">黒</option>
+                            <option value="gold eyes">金</option>
+                            <option value="silver eyes">銀</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="eye-color-custom" class="custom-input" placeholder="例: オッドアイ">
+                        <input type="color" id="eye-color-picker" class="color-picker">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hair-color">髪色 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
+                        <select id="hair-color">
+                            <option value="black hair">黒</option>
+                            <option value="brown hair">茶</option>
+                            <option value="blonde hair">金</option>
+                            <option value="silver hair">銀</option>
+                            <option value="red hair">赤</option>
+                            <option value="blue hair">青</option>
+                            <option value="green hair">緑</option>
+                            <option value="pink hair">ピンク</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="hair-color-custom" class="custom-input" placeholder="例: グラデーション">
+                        <input type="color" id="hair-color-picker" class="color-picker">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hair-style">髪型 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
+                        <select id="hair-style">
+                            <option value="short hair">ショート</option>
+                            <option value="bob hair">ボブ</option>
+                            <option value="long hair">ロング</option>
+                            <option value="ponytail">ポニーテール</option>
+                            <option value="twin tails">ツインテール</option>
+                            <option value="bun hair">お団子</option>
+                            <option value="braids">三つ編み</option>
+                            <option value="braided hair">編み込み</option>
+                            <option value="outward flick hair">外ハネ</option>
+                            <option value="inward curl hair">内巻き</option>
+                            <option value="straight hair">ストレート</option>
+                            <option value="wavy hair">ウェーブ</option>
+                            <option value="curly hair">カール</option>
+                            <option value="ahoge">アホ毛</option>
+                            <option value="blunt bangs">前髪ぱっつん</option>
+                            <option value="see-through bangs">シースルーバング</option>
+                            <option value="asymmetrical hair">アシンメトリー</option>
+                            <option value="hime cut">姫カット</option>
+                        <option value="wolf cut">ウルフカット</option>
                         <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="ears-custom" class="custom-input" placeholder="例: 悪魔の角">
-                </div>
+                        </select>
+                        <input type="text" id="hair-style-custom" class="custom-input" placeholder="例: ドリルヘア">
+                    </div>
 
-                <div class="form-group">
-                    <label for="outfit">服装 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
-                    <select id="outfit">
-                        <option value="gothic lolita dress">ゴスロリ</option>
-                        <option value="sailor uniform">セーラー服</option>
-                        <option value="maid outfit">メイド服</option>
-                        <option value="gyaru style">ギャル</option>
-                        <option value="fluffy pajamas">ふわもこパジャマ</option>
-                        <option value="classical dress">クラシカルドレス</option>
-                        <option value="cheongsam">チャイナドレス</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="outfit-custom" class="custom-input" placeholder="例: メイド服">
-                </div>
+                    <div class="form-group">
+                        <label for="expression">表情 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
+                        <select id="expression">
+                            <option value="smiling">笑顔</option>
+                            <option value="troubled expression">困り顔</option>
+                            <option value="angry expression">怒り顔</option>
+                            <option value="expressionless">無表情</option>
+                            <option value="blushing">照れ顔</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="expression-custom" class="custom-input" placeholder="例: 泣き顔">
+                    </div>
 
-                <div class="form-group slider-group">
-                    <label for="body-size">体の大小: <span id="body-size-value">50</span></label>
-                    <input type="range" id="body-size" min="0" max="100" value="50">
-                </div>
-
-                <div class="form-group slider-group">
-                    <label for="breast-size">胸の大きさ: <span id="breast-size-value">50</span></label>
-                    <input type="range" id="breast-size" min="0" max="100" value="50">
-                </div>
-
-                <div class="form-group">
-                    <label for="eye-color">目の色 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
-                    <select id="eye-color">
-                        <option value="red eyes">赤</option>
-                        <option value="blue eyes">青</option>
-                        <option value="green eyes">緑</option>
-                        <option value="brown eyes">茶</option>
-                        <option value="black eyes">黒</option>
-                        <option value="gold eyes">金</option>
-                        <option value="silver eyes">銀</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="eye-color-custom" class="custom-input" placeholder="例: オッドアイ">
-                    <input type="color" id="eye-color-picker" class="color-picker">
-                </div>
-
-                <div class="form-group">
-                    <label for="hair-color">髪色 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
-                    <select id="hair-color">
-                        <option value="black hair">黒</option>
-                        <option value="brown hair">茶</option>
-                        <option value="blonde hair">金</option>
-                        <option value="silver hair">銀</option>
-                        <option value="red hair">赤</option>
-                        <option value="blue hair">青</option>
-                        <option value="green hair">緑</option>
-                        <option value="pink hair">ピンク</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="hair-color-custom" class="custom-input" placeholder="例: グラデーション">
-                    <input type="color" id="hair-color-picker" class="color-picker">
-                </div>
-
-                <div class="form-group">
-                    <label for="hair-style">髪型 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
-                    <select id="hair-style">
-                        <option value="short hair">ショート</option>
-                        <option value="bob hair">ボブ</option>
-                        <option value="long hair">ロング</option>
-                        <option value="ponytail">ポニーテール</option>
-                        <option value="twin tails">ツインテール</option>
-                        <option value="bun hair">お団子</option>
-                        <option value="braids">三つ編み</option>
-                        <option value="braided hair">編み込み</option>
-                        <option value="outward flick hair">外ハネ</option>
-                        <option value="inward curl hair">内巻き</option>
-                        <option value="straight hair">ストレート</option>
-                        <option value="wavy hair">ウェーブ</option>
-                        <option value="curly hair">カール</option>
-                        <option value="ahoge">アホ毛</option>
-                        <option value="blunt bangs">前髪ぱっつん</option>
-                        <option value="see-through bangs">シースルーバング</option>
-                        <option value="asymmetrical hair">アシンメトリー</option>
-                        <option value="hime cut">姫カット</option>
-                        <option value="undercut">刈り上げ</option>
-                        <option value="slicked back hair">オールバック</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="hair-style-custom" class="custom-input" placeholder="例: ドリルヘア">
-                </div>
-
-                <div class="form-group">
-                    <label for="expression">表情 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
-                    <select id="expression">
-                        <option value="smiling">笑顔</option>
-                        <option value="troubled expression">困り顔</option>
-                        <option value="angry expression">怒り顔</option>
-                        <option value="expressionless">無表情</option>
-                        <option value="blushing">照れ顔</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="expression-custom" class="custom-input" placeholder="例: 泣き顔">
-                </div>
-
-                <div class="form-group">
-                    <label for="pose">ポーズ <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
-                    <select id="pose">
-                        <option value="standing pose">立ち姿</option>
-                        <option value="sitting pose">座り姿</option>
-                        <option value="waving hand">手を振る</option>
-                        <option value="lying down">寝転がる</option>
-                        <option value="running">走る</option>
-                        <option value="jumping">飛び跳ねる</option>
-                        <option value="thinking">考える</option>
-                        <option value="surprised">驚く</option>
-                        <option value="hiding">隠れる</option>
-                        <option value="dancing">踊る</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="pose-custom" class="custom-input" placeholder="例: ジャンプ">
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>性格・口調</legend>
-                <div class="form-group">
-                    <label for="personality">性格傾向 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
-                    <select id="personality">
-                        <option value="tsundere">ツンデレ</option>
-                        <option value="yandere">ヤンデレ</option>
-                        <option value="spoiled">甘えんぼ</option>
-                        <option value="cool">クール</option>
-                        <option value="calm">おっとり</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="personality-custom" class="custom-input" placeholder="例: ドS">
-                </div>
-
-                <div class="form-group slider-group">
-                    <label for="personality-level"><span id="personality-level-label">性格の度合い</span>: <span id="personality-level-value">50</span></label>
-                    <input type="range" id="personality-level" min="0" max="100" value="50">
-                </div>
-
-                <div class="form-group">
-                    <label for="tone">話し方（語尾） <span class="info-icon" title="ChatGPTでの表現のヒント">ⓘ</span></label>
-                    <select id="tone">
-                        <option value="〜だよっ">〜だよっ</option>
-                        <option value="〜ですの">〜ですの</option>
-                        <option value="〜にゃ">〜にゃ</option>
-                        <option value="〜だぞ">〜だぞ</option>
-                        <option value="〜かしら">〜かしら</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="tone-custom" class="custom-input" placeholder="例: 〜でちゅ">
-                </div>
-
-                <div class="form-group">
-                    <label for="first">一人称 <span class="info-icon" title="ChatGPTでの表現のヒント">ⓘ</span></label>
-                    <select id="first">
-                        <option value="ボク">ボク</option>
-                        <option value="わたし">わたし</option>
-                        <option value="私">私</option>
-                        <option value="俺">俺</option>
-                        <option value="あたし">あたし</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="first-custom" class="custom-input" placeholder="例: わたくし">
-                </div>
-
-                <div class="form-group">
-                    <label for="second">二人称（呼称） <span class="info-icon" title="ChatGPTでの表現のヒント">ⓘ</span></label>
-                    <select id="second">
-                        <option value="あなた">あなた</option>
-                        <option value="きみ">きみ</option>
-                        <option value="〇〇くん">〇〇くん</option>
-                        <option value="お前">お前</option>
-                        <option value="〇〇さん">〇〇さん</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="second-custom" class="custom-input" placeholder="例: 貴様">
-                </div>
-
-                <div class="form-group">
-                    <label>感情のミックス <span class="info-icon" title="複数の性格傾向を組み合わせる">ⓘ</span></label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" name="emotion-mix" value="tsundere">ツンデレ</label>
-                        <label><input type="checkbox" name="emotion-mix" value="yandere">ヤンデレ</label>
-                        <label><input type="checkbox" name="emotion-mix" value="spoiled">甘えんぼ</label>
-                        <label><input type="checkbox" name="emotion-mix" value="cool">クール</label>
-                        <label><input type="checkbox" name="emotion-mix" value="calm">おっとり</label>
-                        <label><input type="checkbox" name="emotion-mix" value="active">活発</label>
-                        <label><input type="checkbox" name="emotion-mix" value="apathetic">無気力</label>
-                        <label><input type="checkbox" name="emotion-mix" value="timid">臆病</label>
-                        <label><input type="checkbox" name="emotion-mix" value="bold">大胆</label>
-                        <label><input type="checkbox" name="emotion-mix" value="curious">好奇心旺盛</label>
-                        <label><input type="checkbox" name="emotion-mix" value="lonely">寂しがり屋</label>
-                        <label><input type="checkbox" name="emotion-mix" value="other">その他</option>
-                    </select>
-                    <input type="text" id="emotion-mix-custom" class="custom-input" placeholder="例: 寂しがり屋">
+                    <div class="form-group">
+                        <label for="pose">ポーズ <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
+                        <select id="pose">
+                            <option value="standing pose">立ち姿</option>
+                            <option value="sitting pose">座り姿</option>
+                            <option value="waving hand">手を振る</option>
+                            <option value="lying down">寝転がる</option>
+                            <option value="running">走る</option>
+                            <option value="jumping">飛び跳ねる</option>
+                            <option value="thinking">考える</option>
+                            <option value="surprised">驚く</option>
+                            <option value="hiding">隠れる</option>
+                            <option value="dancing">踊る</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="pose-custom" class="custom-input" placeholder="例: ジャンプ">
                     </div>
                 </div>
             </fieldset>
 
-            <fieldset>
-                <legend>シチュエーション</legend>
-                <div class="form-group">
-                    <label for="role">今日の役割 <span class="info-icon" title="ChatGPTでの表現のヒント">ⓘ</span></label>
-                    <select id="role">
-                        <option value="朝起こす役目">朝起こす役目</option>
-                        <option value="お弁当を届けに来た">お弁当を届けに来た</option>
-                        <option value="嫉妬して詰め寄る">嫉妬して詰め寄る</option>
-                        <option value="勉強を教えてくれる">勉強を教えてくれる</option>
-                        <option value="一緒にゲームをする">一緒にゲームをする</option>
-                        <option value="料理を作ってくれる">料理を作ってくれる</option>
-                        <option value="買い物に付き合う">買い物に付き合う</option>
-                        <option value="秘密を打ち明ける">秘密を打ち明ける</option>
-                        <option value="励ましてくれる">励ましてくれる</option>
-                        <option value="叱ってくれる">叱ってくれる</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="role-custom" class="custom-input" placeholder="例: 膝枕をしてくれる">
-                </div>
+            <fieldset class="accordion">
+                <legend class="accordion-header">性格・口調</legend>
+                <div class="accordion-content">
+                    <div class="form-group">
+                        <label for="personality">性格傾向 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
+                        <select id="personality">
+                            <option value="tsundere">ツンデレ</option>
+                            <option value="yandere">ヤンデレ</option>
+                            <option value="spoiled">甘えんぼ</option>
+                            <option value="cool">クール</option>
+                            <option value="calm">おっとり</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="personality-custom" class="custom-input" placeholder="例: ドS">
+                    </div>
 
-                <div class="form-group">
-                    <label for="location">場所・背景 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
-                    <select id="location">
-                        <option value="classroom">教室</option>
-                        <option value="own room">自室</option>
-                        <option value="rooftop">屋上</option>
-                        <option value="cafe">カフェ</option>
-                        <option value="park">公園</option>
-                        <option value="fantasy world">異世界</option>
-                        <option value="library">図書館</option>
-                        <option value="shopping street">商店街</option>
-                        <option value="amusement park">遊園地</option>
-                        <option value="beach">海辺</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="location-custom" class="custom-input" placeholder="例: 図書館">
-                </div>
+                    <div class="form-group slider-group">
+                        <label for="personality-level"><span id="personality-level-label">性格の度合い</span>: <span id="personality-level-value">普通</span></label>
+                        <input type="range" id="personality-level" min="1" max="5" value="3">
+                    </div>
 
-                <div class="form-group">
-                    <label for="relationship">関係性 <span class="info-icon" title="ChatGPTでの表現のヒント">ⓘ</span></label>
-                    <select id="relationship">
-                        <option value="childhood friend">幼馴染</option>
-                        <option value="teacher">先生</option>
-                        <option value="junior">後輩</option>
-                        <option value="boss">上司</option>
-                        <option value="lover">恋人</option>
-                        <option value="sibling">兄妹</option>
-                        <option value="best friend">親友</option>
-                        <option value="neighbor">隣人</option>
-                        <option value="distant relative">遠い親戚</option>
-                        <option value="rival">宿敵</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="relationship-custom" class="custom-input" placeholder="例: 許嫁">
-                </div>
+                    <div class="form-group">
+                        <label for="tone">話し方（語尾） <span class="info-icon" title="ChatGPTでの表現のヒント">ⓘ</span></label>
+                        <select id="tone">
+                            <option value="">なし</option>
+                            <option value="〜だよっ">〜だよっ</option>
+                            <option value="〜ですの">〜ですの</option>
+                            <option value="〜にゃ">〜にゃ</option>
+                            <option value="〜だぞ">〜だぞ</option>
+                            <option value="〜かしら">〜かしら</option>
+                            <option value="〜なのだ">〜なのだ</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="tone-custom" class="custom-input" placeholder="例: 〜でちゅ">
+                    </div>
 
-                <div class="form-group">
-                    <label for="time-of-day">時間帯 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
-                    <select id="time-of-day">
-                        <option value="morning">朝</option>
-                        <option value="daytime">昼</option>
-                        <option value="evening">夕方</option>
-                        <option value="night">夜</option>
-                        <option value="late night">深夜</option>
-                        <option value="early morning">早朝</option>
-                        <option value="noon">正午</option>
-                        <option value="sunset">日没</option>
-                        <option value="midnight">真夜中</option>
-                        <option value="dawn">夜明け</option>
-                        <option value="other">その他</option>
-                    </select>
-                    <input type="text" id="time-of-day-custom" class="custom-input" placeholder="例: 真昼">
+                    <div class="form-group">
+                        <label for="first">一人称 <span class="info-icon" title="ChatGPTでの表現のヒント">ⓘ</span></label>
+                        <select id="first">
+                            <option value="ボク">ボク</option>
+                            <option value="わたし">わたし</option>
+                            <option value="私">私</option>
+                            <option value="俺">俺</option>
+                            <option value="あたし">あたし</option>
+                            <option value="わし">わし</option>
+                            <option value="うち">うち</option>
+                            <option value="自分の名前">自分の名前</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="first-custom" class="custom-input" placeholder="例: わたくし">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="second">二人称（呼称） <span class="info-icon" title="ChatGPTでの表現のヒント">ⓘ</span></label>
+                        <select id="second">
+                            <option value="あなた">あなた</option>
+                            <option value="きみ">きみ</option>
+                            <option value="〇〇くん">〇〇くん</option>
+                            <option value="お前">お前</option>
+                            <option value="〇〇さん">〇〇さん</option>
+                            <option value="あなた様">あなた様</option>
+                            <option value="主">主</option>
+                            <option value="〇〇様">〇〇様</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="second-custom" class="custom-input" placeholder="例: 貴様">
+                    </div>
+
+                    <div class="form-group">
+                        <label>感情のミックス <span class="info-icon" title="複数の性格傾向を組み合わせる">ⓘ</span></label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="emotion-mix" value="tsundere">ツンデレ</label>
+                            <label><input type="checkbox" name="emotion-mix" value="yandere">ヤンデレ</label>
+                            <label><input type="checkbox" name="emotion-mix" value="spoiled">甘えんぼ</label>
+                            <label><input type="checkbox" name="emotion-mix" value="cool">クール</label>
+                            <label><input type="checkbox" name="emotion-mix" value="calm">おっとり</label>
+                            <label><input type="checkbox" name="emotion-mix" value="active">活発</label>
+                            <label><input type="checkbox" name="emotion-mix" value="apathetic">無気力</label>
+                            <label><input type="checkbox" name="emotion-mix" value="timid">臆病</label>
+                            <label><input type="checkbox" name="emotion-mix" value="bold">大胆</label>
+                            <label><input type="checkbox" name="emotion-mix" value="curious">好奇心旺盛</label>
+                            <label><input type="checkbox" name="emotion-mix" value="lonely">寂しがり屋</label>
+                        </div>
+                    </div>
                 </div>
             </fieldset>
 
-            <fieldset>
-                <legend>自由記述</legend>
-                <div class="form-group">
-                    <label for="custom-text">自由入力欄 <span class="info-icon" title="細かい設定／背景補足／服装の追加要素など自由に記述">ⓘ</span></label>
-                    <textarea id="custom-text" rows="5" placeholder="例: 髪型はロングヘアで、瞳は猫のような縦長。背景には桜の木が満開に咲いている。主人公とは幼い頃からの許嫁。"></textarea>
+            <fieldset class="accordion">
+                <legend class="accordion-header">シチュエーション</legend>
+                <div class="accordion-content">
+                    <div class="form-group">
+                        <label for="role">今日の役割 <span class="info-icon" title="ChatGPTでの表現のヒント">ⓘ</span></label>
+                        <select id="role">
+                            <option value="朝起こす役目">朝起こす役目</option>
+                            <option value="お弁当を届けに来た">お弁当を届けに来た</option>
+                            <option value="嫉妬して詰め寄る">嫉妬して詰め寄る</option>
+                            <option value="勉強を教えてくれる">勉強を教えてくれる</option>
+                            <option value="一緒にゲームをする">一緒にゲームをする</option>
+                            <option value="料理を作ってくれる">料理を作ってくれる</option>
+                            <option value="買い物に付き合う">買い物に付き合う</option>
+                            <option value="秘密を打ち明ける">秘密を打ち明ける</option>
+                            <option value="励ましてくれる">励ましてくれる</option>
+                            <option value="叱ってくれる">叱ってくれる</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="role-custom" class="custom-input" placeholder="例: 膝枕をしてくれる">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">場所・背景 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
+                        <select id="location">
+                            <option value="classroom">教室</option>
+                            <option value="own room">自室</option>
+                            <option value="rooftop">屋上</option>
+                            <option value="cafe">カフェ</option>
+                            <option value="park">公園</option>
+                            <option value="fantasy world">異世界</option>
+                            <option value="library">図書館</option>
+                            <option value="shopping street">商店街</option>
+                            <option value="amusement park">遊園地</option>
+                            <option value="beach">海辺</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="location-custom" class="custom-input" placeholder="例: 図書館">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="relationship">関係性 <span class="info-icon" title="ChatGPTでの表現のヒント">ⓘ</span></label>
+                        <select id="relationship">
+                            <option value="childhood friend">幼馴染</option>
+                            <option value="teacher">先生</option>
+                            <option value="junior">後輩</option>
+                            <option value="boss">上司</option>
+                            <option value="lover">恋人</option>
+                            <option value="sibling">兄妹</option>
+                            <option value="best friend">親友</option>
+                            <option value="neighbor">隣人</option>
+                            <option value="distant relative">遠い親戚</option>
+                            <option value="rival">宿敵</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="relationship-custom" class="custom-input" placeholder="例: 許嫁">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time-of-day">時間帯 <span class="info-icon" title="画像生成AIでの表現のヒント">ⓘ</span></label>
+                        <select id="time-of-day">
+                            <option value="morning">朝</option>
+                            <option value="daytime">昼</option>
+                            <option value="evening">夕方</option>
+                            <option value="night">夜</option>
+                            <option value="late night">深夜</option>
+                            <option value="early morning">早朝</option>
+                            <option value="noon">正午</option>
+                            <option value="sunset">日没</option>
+                            <option value="midnight">真夜中</option>
+                            <option value="dawn">夜明け</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <input type="text" id="time-of-day-custom" class="custom-input" placeholder="例: 真昼">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="accordion">
+                <legend class="accordion-header">自由記述</legend>
+                <div class="accordion-content">
+                    <div class="form-group">
+                        <label for="custom-text">自由入力欄 <span class="info-icon" title="細かい設定／背景補足／服装の追加要素など自由に記述">ⓘ</span></label>
+                        <textarea id="custom-text" rows="5" placeholder="例: 髪型はロングヘアで、瞳は猫のような縦長。背景には桜の木が満開に咲いている。主人公とは幼い頃からの許嫁。"></textarea>
+                    </div>
                 </div>
             </fieldset>
 
             <div class="controls">
                 <button id="random-generate">ランダム生成</button>
+                <button id="reset-form">入力内容をリセット</button>
             </div>
         </section>
 
@@ -348,13 +366,17 @@
             </div>
 
             <div class="prompt-group">
-                <h3>画像生成用プロンプト（英語）</h3>
+                <h3>画像生成用プロンプト</h3>
                 <textarea id="image-prompt" rows="10" readonly></textarea>
                 <button class="copy-button" data-target="image-prompt">コピー</button>
             </div>
 
             <div class="share-buttons">
-                <a href="https://twitter.com/intent/tweet?url=https://your-website-url.com&text=AIカノジョメーカーであなただけのAIカノジョを生成しよう！%20%23AIカノジョメーカー" class="twitter-share-button" data-show-count="false" target="_blank">ツイート</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <a href="https://twitter.com/intent/tweet?url=https://aikanojomaker.onrender.com/&text=AIカノジョメーカーであなただけのAIカノジョを生成しよう！%20%23AIカノジョメーカー" class="twitter-share-button" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
             </div>
         </section>
     </main>

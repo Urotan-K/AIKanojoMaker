@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const formElements = {
+        charName: document.getElementById('char-name'),
         ears: document.getElementById('ears'),
         earsCustom: document.getElementById('ears-custom'),
         outfit: document.getElementById('outfit'),
@@ -32,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         second: document.getElementById('second'),
         secondCustom: document.getElementById('second-custom'),
         emotionMix: document.querySelectorAll('input[name="emotion-mix"]'),
-        emotionMixCustom: document.getElementById('emotion-mix-custom'),
         role: document.getElementById('role'),
         roleCustom: document.getElementById('role-custom'),
         location: document.getElementById('location'),
@@ -41,475 +41,231 @@ document.addEventListener('DOMContentLoaded', () => {
         relationshipCustom: document.getElementById('relationship-custom'),
         timeOfDay: document.getElementById('time-of-day'),
         timeOfDayCustom: document.getElementById('time-of-day-custom'),
-        customText: document.getElementById('custom-text'),
+        customText: document.getElementById('custom-text')
     };
 
     const chatgptPromptOutput = document.getElementById('chatgpt-prompt');
     const imagePromptOutput = document.getElementById('image-prompt');
     const randomGenerateButton = document.getElementById('random-generate');
+    const resetButton = document.getElementById('reset-form');
     const copyButtons = document.querySelectorAll('.copy-button');
+    const accordions = document.querySelectorAll('.accordion-header');
 
-    // --- データ定義 --- //
-    const data = {
-        ears: {
-            options: {
-                '狐耳': 'fox ears',
-                '猫耳': 'cat ears',
-                'うさ耳': 'rabbit ears',
-                'なし': 'none',
-            },
-            default: 'なし',
-        },
-        outfit: {
-            options: {
-                'ゴスロリ': 'gothic lolita dress',
-                'セーラー服': 'sailor uniform',
-                'メイド服': 'maid outfit',
-                'ギャル': 'gyaru style',
-                'ふわもこパジャマ': 'fluffy pajamas',
-                'クラシカルドレス': 'classical dress',
-                'チャイナドレス': 'cheongsam',
-            },
-            default: 'ゴスロリ',
-        },
-        eyeColor: {
-            options: {
-                '赤': 'red eyes',
-                '青': 'blue eyes',
-                '緑': 'green eyes',
-                '茶': 'brown eyes',
-                '黒': 'black eyes',
-                '金': 'gold eyes',
-                '銀': 'silver eyes',
-            },
-            default: '茶',
-        },
-        hairColor: {
-            options: {
-                '黒': 'black hair',
-                '茶': 'brown hair',
-                '金': 'blonde hair',
-                '銀': 'silver hair',
-                '赤': 'red hair',
-                '青': 'blue hair',
-                '緑': 'green hair',
-                'ピンク': 'pink hair',
-            },
-            default: '黒',
-        },
-        hairStyle: {
-            options: {
-                'ショート': 'short hair',
-                'ボブ': 'bob hair',
-                'ロング': 'long hair',
-                'ポニーテール': 'ponytail',
-                'ツインテール': 'twin tails',
-                'お団子': 'bun hair',
-                '三つ編み': 'braids',
-                '編み込み': 'braided hair',
-                '外ハネ': 'outward flick hair',
-                '内巻き': 'inward curl hair',
-                'ストレート': 'straight hair',
-                'ウェーブ': 'wavy hair',
-                'カール': 'curly hair',
-                'アホ毛': 'ahoge',
-                '前髪ぱっつん': 'blunt bangs',
-                'シースルーバング': 'see-through bangs',
-                'アシンメトリー': 'asymmetrical hair',
-                '姫カット': 'hime cut',
-                '刈り上げ': 'undercut',
-                'オールバック': 'slicked back hair',
-            },
-            default: 'ロング',
-        },
-        expression: {
-            options: {
-                '笑顔': 'smiling',
-                '困り顔': 'troubled expression',
-                '怒り顔': 'angry expression',
-                '無表情': 'expressionless',
-                '照れ顔': 'blushing',
-            },
-            default: '笑顔',
-        },
-        pose: {
-            options: {
-                '立ち姿': 'standing pose',
-                '座り姿': 'sitting pose',
-                '手を振る': 'waving hand',
-                '寝転がる': 'lying down',
-                '走る': 'running',
-                '飛び跳ねる': 'jumping',
-                '考える': 'thinking',
-                '驚く': 'surprised',
-                '隠れる': 'hiding',
-                '踊る': 'dancing',
-            },
-            default: '立ち姿',
-        },
-        personality: {
-            options: {
-                'ツンデレ': 'tsundere',
-                'ヤンデレ': 'yandere',
-                '甘えんぼ': 'spoiled',
-                'クール': 'cool',
-                'おっとり': 'calm',
-            },
-            default: 'ツンデレ',
-        },
-        tone: {
-            options: {
-                '〜だよっ': '〜だよっ',
-                '〜ですの': '〜ですの',
-                '〜にゃ': '〜にゃ',
-                '〜だぞ': '〜だぞ',
-                '〜かしら': '〜かしら',
-            },
-            default: '〜だよっ',
-        },
-        first: {
-            options: {
-                'ボク': 'ボク',
-                'わたし': 'わたし',
-                '私': '私',
-                '俺': '俺',
-                'あたし': 'あたし',
-            },
-            default: 'わたし',
-        },
-        second: {
-            options: {
-                'あなた': 'あなた',
-                'きみ': 'きみ',
-                '〇〇くん': '〇〇くん',
-                'お前': 'お前',
-                '〇〇さん': '〇〇さん',
-            },
-            default: 'あなた',
-        },
-        emotionMix: {
-            options: {
-                'ツンデレ': 'tsundere',
-                'ヤンデレ': 'yandere',
-                '甘えんぼ': 'spoiled',
-                'クール': 'cool',
-                'おっとり': 'calm',
-                '活発': 'active',
-                '無気力': 'apathetic',
-                '臆病': 'timid',
-                '大胆': 'bold',
-                '好奇心旺盛': 'curious',
-                '寂しがり屋': 'lonely',
-            },
-        },
-        role: {
-            options: {
-                '朝起こす役目': 'waking up',
-                'お弁当を届けに来た': 'delivering lunch box',
-                '嫉妬して詰め寄る': 'jealous and confronting',
-                '勉強を教えてくれる': 'teaching study',
-                '一緒にゲームをする': 'playing game together',
-                '料理を作ってくれる': 'cooking',
-                '買い物に付き合う': 'shopping together',
-                '秘密を打ち明ける': 'confiding a secret',
-                '励ましてくれる': 'encouraging',
-                '叱ってくれる': 'scolding',
-            },
-            default: '朝起こす役目',
-        },
-        location: {
-            options: {
-                '教室': 'classroom',
-                '自室': 'own room',
-                '屋上': 'rooftop',
-                'カフェ': 'cafe',
-                '公園': 'park',
-                '異世界': 'fantasy world',
-                '図書館': 'library',
-                '商店街': 'shopping street',
-                '遊園地': 'amusement park',
-                '海辺': 'beach',
-            },
-            default: '教室',
-        },
-        relationship: {
-            options: {
-                '幼馴染': 'childhood friend',
-                '先生': 'teacher',
-                '後輩': 'junior',
-                '上司': 'boss',
-                '恋人': 'lover',
-                '兄妹': 'sibling',
-                '親友': 'best friend',
-                '隣人': 'neighbor',
-                '遠い親戚': 'distant relative',
-                '宿敵': 'rival',
-            },
-            default: '恋人',
-        },
-        timeOfDay: {
-            options: {
-                '朝': 'morning',
-                '昼': 'daytime',
-                '夕方': 'evening',
-                '夜': 'night',
-                '深夜': 'late night',
-                '早朝': 'early morning',
-                '正午': 'noon',
-                '日没': 'sunset',
-                '真夜中': 'midnight',
-                '夜明け': 'dawn',
-            },
-            default: '朝',
-        },
+    const sliderLabels = {
+        1: 'とても低い',
+        2: '低い',
+        3: '普通',
+        4: '高い',
+        5: 'とても高い'
     };
 
-    // --- ヘルパー関数 --- //
-    function getSelectedValue(selectElement, customInputElement, colorPickerElement = null) {
-        if (colorPickerElement && colorPickerElement.value && colorPickerElement.value !== '#000000') { // デフォルト値以外が選択されていればカラーピッカー優先
-            return colorPickerElement.value; // HEX値をそのまま返す
-        } else if (selectElement.value === 'other') {
+    const breastSizeLabels = {
+        1: 'とても小さい',
+        2: '小さい',
+        3: '普通',
+        4: '大きい',
+        5: 'とても大きい'
+    };
+
+    const personalityLabels = {
+        1: 'とても弱い',
+        2: '弱い',
+        3: '普通',
+        4: '強い',
+        5: 'とても強い'
+    };
+
+    function getSelectedValue(selectElement, customInputElement) {
+        if (selectElement.value === 'other') {
             return customInputElement.value.trim();
         } else {
             return selectElement.value;
         }
     }
 
-    function getSelectedText(selectElement, customInputElement, colorPickerElement = null) {
-        if (colorPickerElement && colorPickerElement.value && colorPickerElement.value !== '#000000') {
-            return colorPickerElement.value; // HEX値をそのまま返す
-        } else if (selectElement.value === 'other') {
+    function getSelectedText(selectElement, customInputElement) {
+        if (selectElement.value === 'other') {
             return customInputElement.value.trim();
         } else {
             return selectElement.options[selectElement.selectedIndex].text;
         }
     }
 
-    function getSliderValue(sliderElement, valueElement) {
-        valueElement.textContent = sliderElement.value;
-        return parseInt(sliderElement.value);
-    }
-
-    function getBodySizePrompt(value) {
-        if (value < 20) return 'petite body';
-        if (value < 40) return 'slender body';
-        if (value < 60) return 'average body';
-        if (value < 80) return 'curvy body';
-        return 'voluptuous body';
-    }
-
-    function getBreastSizePrompt(value) {
-        if (value < 20) return 'flat chest';
-        if (value < 40) return 'small breasts';
-        if (value < 60) return 'medium breasts';
-        if (value < 80) return 'large breasts';
-        return 'huge breasts';
-    }
-
-    function getPersonalityLevelText(personality, value) {
-        if (value === 0) return `${personality}度合い：控えめ`;
-        if (value === 100) return `${personality}度合い：強調`;
-        return `${personality}度合い：${value}%`;
-    }
-
-    function getEmotionMixText() {
-        const selectedEmotions = [];
-        formElements.emotionMix.forEach(checkbox => {
-            if (checkbox.checked && checkbox.value !== 'other') {
-                selectedEmotions.push(data.emotionMix.options[checkbox.value]);
-            }
-        });
-        const customEmotion = formElements.emotionMixCustom.value.trim();
-        if (customEmotion) {
-            selectedEmotions.push(customEmotion);
-        }
-        return selectedEmotions.length > 0 ? selectedEmotions.join(', ') : '';
-    }
-
-    // --- プロンプト生成ロジック --- //
     function generatePrompts() {
+        const charName = formElements.charName.value.trim() || 'キャラクター';
+
+        let chatGPTPrompt = `これからロールプレイをします。以下の設定に従って、キャラクターになりきって会話してください.\n\n`;
+        chatGPTPrompt += `■名前\n${charName}\n\n`;
+
         // 外見
+        let appearance = '';
         const earsText = getSelectedText(formElements.ears, formElements.earsCustom);
-        const earsPrompt = getSelectedValue(formElements.ears, formElements.earsCustom);
+        if (earsText && earsText !== 'なし') appearance += `・耳: ${earsText}\n`;
 
         const outfitText = getSelectedText(formElements.outfit, formElements.outfitCustom);
-        const outfitPrompt = getSelectedValue(formElements.outfit, formElements.outfitCustom);
+        if (outfitText) appearance += `・服装: ${outfitText}\n`;
 
-        const bodySizeValue = getSliderValue(formElements.bodySize, formElements.bodySizeValue);
-        const bodySizePrompt = getBodySizePrompt(bodySizeValue);
+        const bodySize = formElements.bodySize.value;
+        appearance += `・身長: ${sliderLabels[bodySize]}\n`;
 
-        const breastSizeValue = getSliderValue(formElements.breastSize, formElements.breastSizeValue);
-        const breastSizePrompt = getBreastSizePrompt(breastSizeValue);
+        const breastSize = formElements.breastSize.value;
+        appearance += `・胸の大きさ: ${breastSizeLabels[breastSize]}\n`;
 
-        const eyeColorText = getSelectedText(formElements.eyeColor, formElements.eyeColorCustom, formElements.eyeColorPicker);
-        const eyeColorPrompt = getSelectedValue(formElements.eyeColor, formElements.eyeColorCustom, formElements.eyeColorPicker);
+        const eyeColorText = getSelectedText(formElements.eyeColor, formElements.eyeColorCustom);
+        if (eyeColorText) appearance += `・目の色: ${eyeColorText}\n`;
 
-        const hairColorText = getSelectedText(formElements.hairColor, formElements.hairColorCustom, formElements.hairColorPicker);
-        const hairColorPrompt = getSelectedValue(formElements.hairColor, formElements.hairColorCustom, formElements.hairColorPicker);
+        const hairColorText = getSelectedText(formElements.hairColor, formElements.hairColorCustom);
+        if (hairColorText) appearance += `・髪の色: ${hairColorText}\n`;
 
         const hairStyleText = getSelectedText(formElements.hairStyle, formElements.hairStyleCustom);
-        const hairStylePrompt = getSelectedValue(formElements.hairStyle, formElements.hairStyleCustom);
+        if (hairStyleText) appearance += `・髪型: ${hairStyleText}\n`;
 
         const expressionText = getSelectedText(formElements.expression, formElements.expressionCustom);
-        const expressionPrompt = getSelectedValue(formElements.expression, formElements.expressionCustom);
+        if (expressionText) appearance += `・表情: ${expressionText}\n`;
 
         const poseText = getSelectedText(formElements.pose, formElements.poseCustom);
-        const posePrompt = getSelectedValue(formElements.pose, formElements.poseCustom);
+        if (poseText) appearance += `・ポーズ: ${poseText}\n`;
+
+        if(appearance) chatGPTPrompt += `■外見\n${appearance}\n`;
 
         // 性格・口調
+        let personalityTone = '';
         const personalityText = getSelectedText(formElements.personality, formElements.personalityCustom);
-        const personalityPrompt = getSelectedValue(formElements.personality, formElements.personalityCustom);
+        if (personalityText) {
+            const personalityLevel = formElements.personalityLevel.value;
+            personalityTone += `・性格: ${personalityText} (${personalityLabels[personalityLevel]})\n`;
+        }
 
-        const personalityLevelValue = getSliderValue(formElements.personalityLevel, formElements.personalityLevelValue);
-        const personalityLevelText = getPersonalityLevelText(personalityText, personalityLevelValue);
+        const toneValue = formElements.tone.value;
+        const tone = toneValue === 'other' ? formElements.toneCustom.value.trim() : toneValue;
+        if (tone) personalityTone += `・口調（語尾）: ${tone}\n`;
 
-        const toneText = getSelectedText(formElements.tone, formElements.toneCustom);
-        const firstText = getSelectedText(formElements.first, formElements.firstCustom);
-        const secondText = getSelectedText(formElements.second, formElements.secondCustom);
-        const emotionMixText = getEmotionMixText();
+        let first = getSelectedText(formElements.first, formElements.firstCustom);
+        if (first === '自分の名前') {
+            first = charName;
+        }
+        if (first) personalityTone += `・一人称: ${first}\n`;
+
+        const second = getSelectedText(formElements.second, formElements.secondCustom);
+        if (second) personalityTone += `・二人称: ${second}\n`;
+
+        const emotionMix = Array.from(formElements.emotionMix)
+            .filter(i => i.checked)
+            .map(i => i.parentElement.textContent.trim())
+            .join(', ');
+        if (emotionMix) personalityTone += `・感情ミックス: ${emotionMix}\n`;
+
+        if(personalityTone) chatGPTPrompt += `■性格・口調\n${personalityTone}\n`;
 
         // シチュエーション
+        let situation = '';
         const roleText = getSelectedText(formElements.role, formElements.roleCustom);
-        const rolePrompt = getSelectedValue(formElements.role, formElements.roleCustom);
+        if (roleText) situation += `・役割: ${roleText}\n`;
 
         const locationText = getSelectedText(formElements.location, formElements.locationCustom);
-        const locationPrompt = getSelectedValue(formElements.location, formElements.locationCustom);
+        if (locationText) situation += `・場所: ${locationText}\n`;
 
         const relationshipText = getSelectedText(formElements.relationship, formElements.relationshipCustom);
-        const relationshipPrompt = getSelectedValue(formElements.relationship, formElements.relationshipCustom);
+        if (relationshipText) situation += `・関係性: ${relationshipText}\n`;
 
         const timeOfDayText = getSelectedText(formElements.timeOfDay, formElements.timeOfDayCustom);
-        const timeOfDayPrompt = getSelectedValue(formElements.timeOfDay, formElements.timeOfDayCustom);
+        if (timeOfDayText) situation += `・時間帯: ${timeOfDayText}\n`;
 
-        // 自由記述
+        if(situation) chatGPTPrompt += `■シチュエーション\n${situation}\n`;
+
         const customText = formElements.customText.value.trim();
-        const translatedCustom = customText; // 簡易翻訳は後で実装
+        if (customText) {
+            chatGPTPrompt += `■自由記述\n${customText}\n`;
+        }
 
-        // --- ChatGPT用プロンプト生成 --- //
-        let chatgptCharacterSetting = ``;
-        if (earsText) chatgptCharacterSetting += `${earsText}で`;
-        if (outfitText) chatgptCharacterSetting += `${outfitText}を着た`;
-        chatgptCharacterSetting += `女の子。`;
-        if (bodySizeValue !== 50) chatgptCharacterSetting += `体の大きさは${bodySizeValue}、`;
-        if (breastSizeValue !== 50) chatgptCharacterSetting += `胸の大きさは${breastSizeValue}、`;
-        if (eyeColorText) chatgptCharacterSetting += `瞳は${eyeColorText}、`;
-        if (hairColorText) chatgptCharacterSetting += `髪は${hairColorText}。`;
-        if (hairStyleText) chatgptCharacterSetting += `髪型は${hairStyleText}。`;
-        if (expressionText) chatgptCharacterSetting += `表情は${expressionText}。`;
-        if (poseText) chatgptCharacterSetting += `ポーズは${poseText}。`;
-        if (personalityText) chatgptCharacterSetting += `性格は${personalityText}。`;
-        if (personalityLevelValue !== 50) chatgptCharacterSetting += `${personalityLevelText}。`;
-        if (emotionMixText) chatgptCharacterSetting += `感情は${emotionMixText}を混ぜている。`;
-        if (firstText) chatgptCharacterSetting += `一人称は「${firstText}」。`;
-        if (toneText) chatgptCharacterSetting += `語尾は「${toneText}」。`;
-        if (secondText) chatgptCharacterSetting += `二人称は「${secondText}」。`;
-        if (roleText) chatgptCharacterSetting += `今日の役割は「${roleText}」。`;
-        if (locationText) chatgptCharacterSetting += `場所は${locationText}。`;
-        if (relationshipText) chatgptCharacterSetting += `関係性は${relationshipText}。`;
-        if (timeOfDayText) chatgptCharacterSetting += `時間帯は${timeOfDayText}。`;
-        if (customText) chatgptCharacterSetting += `その他：${customText}。`;
+        chatGPTPrompt += `\n以上の設定になりきって、私と会話をしてください。`;
 
-        chatgptPromptOutput.value = `以下のキャラクター設定で、シチュエーションにあったセリフを日本語と英語でそれぞれ出力してください。
+        chatgptPromptOutput.value = chatGPTPrompt;
 
-キャラクター設定：${chatgptCharacterSetting}`;
+        // 画像生成用プロンプト
+        let imagePrompt = 'best quality, masterpiece, an anime girl,';
+        const earsValue = getSelectedValue(formElements.ears, formElements.earsCustom);
+        if (earsValue && earsValue !== 'none') imagePrompt += ` ${earsValue},`;
+        imagePrompt += ` ${getSelectedValue(formElements.outfit, formElements.outfitCustom)},`;
+        imagePrompt += ` ${getSelectedValue(formElements.eyeColor, formElements.eyeColorCustom)} eyes,`;
+        imagePrompt += ` ${getSelectedValue(formElements.hairColor, formElements.hairColorCustom)} hair,`;
+        imagePrompt += ` ${getSelectedValue(formElements.hairStyle, formElements.hairStyleCustom)},`;
+        imagePrompt += ` ${getSelectedValue(formElements.expression, formElements.expressionCustom)},`;
+        imagePrompt += ` ${getSelectedValue(formElements.pose, formElements.poseCustom)},`;
+        imagePrompt += ` ${getSelectedValue(formElements.location, formElements.locationCustom)},`;
+        imagePrompt += ` ${getSelectedValue(formElements.timeOfDay, formElements.timeOfDayCustom)},`;
+        if (customText) imagePrompt += ` ${customText},`;
 
-        // --- 画像生成用プロンプト生成 --- //
-        let imagePrompt = `A cute anime girl`;
-        if (earsPrompt && earsPrompt !== 'none') imagePrompt += ` with ${earsPrompt}`; 
-        if (outfitPrompt) imagePrompt += `, wearing ${outfitPrompt} outfit`;
-        if (bodySizePrompt) imagePrompt += `, ${bodySizePrompt}`; 
-        if (breastSizePrompt) imagePrompt += `, ${breastSizePrompt}`; 
-        if (eyeColorPrompt) imagePrompt += `, ${eyeColorPrompt} eyes`; 
-        if (hairColorPrompt) imagePrompt += `, ${hairColorPrompt} hair`; 
-        if (hairStylePrompt) imagePrompt += `, ${hairStylePrompt} hair style`; 
-        if (expressionPrompt) imagePrompt += `, ${expressionPrompt} facial expression`; 
-        if (posePrompt) imagePrompt += `, ${posePrompt} pose`; 
-        if (rolePrompt) imagePrompt += `, in a scene where she is ${rolePrompt}`; 
-        if (locationPrompt) imagePrompt += `, ${locationPrompt}`; 
-        if (relationshipPrompt) imagePrompt += `, ${relationshipPrompt}`; 
-        if (timeOfDayPrompt) imagePrompt += `, ${timeOfDayPrompt}`; 
-        if (translatedCustom) imagePrompt += `, ${translatedCustom}`; 
-        imagePrompt += `, highly detailed, anime style. 描いてください`;
-
-        imagePromptOutput.value = imagePrompt;
+        imagePromptOutput.value = imagePrompt + ' Please draw.';
     }
 
-    // --- イベントリスナー --- //
-    // 各フォーム要素の変更を監視してプロンプトを更新
-    for (const key in formElements) {
-        const element = formElements[key];
-        if (element instanceof HTMLSelectElement || (element instanceof HTMLInputElement && element.type === 'text') || element instanceof HTMLTextAreaElement) {
-            element.addEventListener('input', generatePrompts);
-        } else if (element instanceof HTMLInputElement && element.type === 'range') {
-            element.addEventListener('input', () => {
-                generatePrompts();
-                // スライダーの値をリアルタイム表示
-                if (element.id === 'body-size') formElements.bodySizeValue.textContent = element.value;
-                if (element.id === 'breast-size') formElements.breastSizeValue.textContent = element.value;
-                if (element.id === 'personality-level') formElements.personalityLevelValue.textContent = element.value;
-            });
-        } else if (element instanceof NodeList) { // emotionMixのようなNodeListの場合
-            element.forEach(checkbox => checkbox.addEventListener('change', generatePrompts));
-        } else if (element instanceof HTMLInputElement && element.type === 'color') {
+    function updateSliderValue(slider, label, labels) {
+        label.textContent = labels[slider.value];
+    }
+
+    function resetForm() {
+        formElements.charName.value = '';
+        
+        const selects = document.querySelectorAll('select');
+        selects.forEach(select => {
+            select.selectedIndex = 0;
+            const event = new Event('change', { bubbles: true });
+            select.dispatchEvent(event);
+        });
+
+        const sliders = document.querySelectorAll('input[type="range"]');
+        sliders.forEach(slider => {
+            slider.value = slider.defaultValue;
+            const event = new Event('input', { bubbles: true });
+            slider.dispatchEvent(event);
+        });
+
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+
+        formElements.customText.value = '';
+
+        generatePrompts();
+    }
+
+    formElements.bodySize.addEventListener('input', () => {
+        updateSliderValue(formElements.bodySize, formElements.bodySizeValue, sliderLabels);
+        generatePrompts();
+    });
+    formElements.breastSize.addEventListener('input', () => {
+        updateSliderValue(formElements.breastSize, formElements.breastSizeValue, breastSizeLabels);
+        generatePrompts();
+    });
+    formElements.personalityLevel.addEventListener('input', () => {
+        updateSliderValue(formElements.personalityLevel, formElements.personalityLevelValue, personalityLabels);
+        generatePrompts();
+    });
+
+    Object.values(formElements).forEach(element => {
+        if (element.nodeName === 'SELECT' || element.nodeName === 'TEXTAREA' || (element.nodeName === 'INPUT' && element.type !== 'range' && element.type !== 'checkbox')) {
             element.addEventListener('input', generatePrompts);
         }
-    }
+    });
 
-    // 「その他」選択時のカスタム入力欄表示制御
+    formElements.emotionMix.forEach(checkbox => {
+        checkbox.addEventListener('change', generatePrompts);
+    });
+
     document.querySelectorAll('select').forEach(select => {
         select.addEventListener('change', (e) => {
             const customInput = document.getElementById(`${e.target.id}-custom`);
             if (customInput) {
-                if (e.target.value === 'other') {
-                    customInput.style.display = 'block';
-                } else {
-                    customInput.style.display = 'none';
-                    customInput.value = ''; // 非表示時に値をクリア
+                customInput.style.display = e.target.value === 'other' ? 'block' : 'none';
+                if (e.target.value !== 'other') {
+                    customInput.value = '';
                 }
             }
             generatePrompts();
         });
     });
 
-    // カラーピッカーとセレクトボックスの連携
-    formElements.eyeColor.addEventListener('change', () => {
-        if (formElements.eyeColor.value !== 'other') {
-            formElements.eyeColorPicker.value = '#000000'; // セレクトボックスがother以外ならカラーピッカーをリセット
-        }
-        generatePrompts();
-    });
-    formElements.eyeColorPicker.addEventListener('input', () => {
-        if (formElements.eyeColorPicker.value !== '#000000') {
-            formElements.eyeColor.value = 'other'; // カラーピッカーが使われたらotherを選択
-            formElements.eyeColorCustom.style.display = 'none'; // カスタム入力は非表示
-            formElements.eyeColorCustom.value = '';
-        }
-        generatePrompts();
-    });
-
-    formElements.hairColor.addEventListener('change', () => {
-        if (formElements.hairColor.value !== 'other') {
-            formElements.hairColorPicker.value = '#000000'; // セレクトボックスがother以外ならカラーピッカーをリセット
-        }
-        generatePrompts();
-    });
-    formElements.hairColorPicker.addEventListener('input', () => {
-        if (formElements.hairColorPicker.value !== '#000000') {
-            formElements.hairColor.value = 'other'; // カラーピッカーが使われたらotherを選択
-            formElements.hairColorCustom.style.display = 'none'; // カスタム入力は非表示
-            formElements.hairColorCustom.value = '';
-        }
-        generatePrompts();
-    });
-
-    // 性格の度合いラベルの動的変更
-    formElements.personality.addEventListener('change', () => {
-        const selectedPersonalityText = formElements.personality.options[formElements.personality.selectedIndex].text;
-        formElements.personalityLevelLabel.textContent = `${selectedPersonalityText}の度合い`;
-        generatePrompts();
-    });
-
-    // コピーボタン
     copyButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             const targetId = e.target.dataset.target;
@@ -524,103 +280,51 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ランダム生成
     randomGenerateButton.addEventListener('click', () => {
-        // 各セレクトボックスをランダムに設定
-        for (const key in data) {
-            const item = data[key];
-            if (item.options) {
-                const options = Object.keys(item.options);
-                const randomOptionKey = options[Math.floor(Math.random() * options.length)];
-                const selectElement = formElements[key];
+        formElements.charName.value = 'セレナ';
+        
+        const selects = document.querySelectorAll('select');
+        selects.forEach(select => {
+            const options = select.options;
+            select.selectedIndex = Math.floor(Math.random() * options.length);
+            const event = new Event('change', { bubbles: true });
+            select.dispatchEvent(event);
+        });
 
-                if (selectElement instanceof HTMLSelectElement) {
-                    selectElement.value = item.options[randomOptionKey]; // FIX: Set the value to the English value from the data object, not the Japanese key.
-                    selectElement.dispatchEvent(new Event('change')); // プログラムによる変更でもchangeイベントを発火
-                    // 「その他」が選択された場合はカスタム入力もランダムに
-                    const customInput = document.getElementById(`${key}-custom`);
-                    if (randomOptionKey === 'other' && customInput) {
-                        const randomCustomText = `ランダム${Math.floor(Math.random() * 100)}`; // 仮のランダムテキスト
-                        customInput.value = randomCustomText;
-                        customInput.style.display = 'block';
-                    } else if (customInput) {
-                        customInput.style.display = 'none';
-                        customInput.value = '';
-                    }
-                    // カラーピッカーのリセット
-                    if (key === 'eyeColor' && formElements.eyeColorPicker) formElements.eyeColorPicker.value = '#000000';
-                    if (key === 'hairColor' && formElements.hairColorPicker) formElements.hairColorPicker.value = '#000000';
+        const sliders = document.querySelectorAll('input[type="range"]');
+        sliders.forEach(slider => {
+            slider.value = Math.floor(Math.random() * (slider.max - slider.min + 1)) + parseInt(slider.min);
+            const event = new Event('input', { bubbles: true });
+            slider.dispatchEvent(event);
+        });
 
-                } else if (key === 'emotionMix') {
-                    // emotionMixはチェックボックスなので特別処理
-                    formElements.emotionMix.forEach(checkbox => checkbox.checked = false);
-                    const numToSelect = Math.floor(Math.random() * (options.length / 2)) + 1; // 1〜半分の数を選択
-                    for (let i = 0; i < numToSelect; i++) {
-                        const randomIndex = Math.floor(Math.random() * options.length);
-                        const randomCheckboxValue = options[randomIndex];
-                        const checkbox = document.querySelector(`input[name="emotion-mix"][value="${randomCheckboxValue}"]`);
-                        if (checkbox) checkbox.checked = true;
-                    }
-                    // emotionMixCustomもランダムに
-                    const customEmotionMixInput = formElements.emotionMixCustom;
-                    if (Math.random() < 0.3) { // 30%の確率でカスタムも埋める
-                        customEmotionMixInput.value = `ランダム感情${Math.floor(Math.random() * 100)}`;
-                        customEmotionMixInput.style.display = 'block';
-                    } else {
-                        customEmotionMixInput.value = '';
-                        customEmotionMixInput.style.display = 'none';
-                    }
-                }
-            }
-        }
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = Math.random() > 0.5;
+        });
 
-        // スライダーのランダム生成
-        formElements.bodySize.value = Math.floor(Math.random() * (parseInt(formElements.bodySize.max) - parseInt(formElements.bodySize.min) + 1)) + parseInt(formElements.bodySize.min);
-        formElements.breastSize.value = Math.floor(Math.random() * (parseInt(formElements.breastSize.max) - parseInt(formElements.breastSize.min) + 1)) + parseInt(formElements.breastSize.min);
-        formElements.personalityLevel.value = Math.floor(Math.random() * (parseInt(formElements.personalityLevel.max) - parseInt(formElements.personalityLevel.min) + 1)) + parseInt(formElements.personalityLevel.min);
-
-        // カラーピッカーのランダム生成
-        const randomColor = `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`;
-        formElements.eyeColorPicker.value = randomColor;
-        formElements.eyeColor.value = 'other'; // カラーピッカーが使われたらotherを選択
-        formElements.eyeColorCustom.style.display = 'none';
-        formElements.eyeColorCustom.value = '';
-
-        const randomColor2 = `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`;
-        formElements.hairColorPicker.value = randomColor2;
-        formElements.hairColor.value = 'other'; // カラーピッカーが使われたらotherを選択
-        formElements.hairColorCustom.style.display = 'none';
-        formElements.hairColorCustom.value = '';
-
-        // 自由入力欄のランダム生成 (簡易版)
-        const randomCustomTexts = [
-            '髪型はツインテール',
-            '瞳は猫のような縦長',
-            '背景は夕焼けの教室',
-            '主人公とは幼い頃からの許嫁',
-            '猫が好き',
-            '甘いものが好き',
-            '読書が趣味',
-            '運動神経抜群',
-            '少しドジっ子',
-            '実は宇宙人',
-        ];
-        formElements.customText.value = randomCustomTexts[Math.floor(Math.random() * randomCustomTexts.length)];
+        formElements.customText.value = '';
 
         generatePrompts();
     });
 
-    // 初期プロンプト生成
-    generatePrompts();
+    resetButton.addEventListener('click', resetForm);
 
-    // 初期表示時に「その他」のカスタム入力欄を非表示にする
-    document.querySelectorAll('select').forEach(select => {
-        const customInput = document.getElementById(`${select.id}-custom`);
-        if (customInput && select.value !== 'other') {
-            customInput.style.display = 'none';
-        }
+    accordions.forEach(accordion => {
+        accordion.addEventListener('click', () => {
+            accordion.classList.toggle('active');
+            const content = accordion.nextElementSibling;
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+            } else {
+                content.style.display = 'block';
+            }
+        });
     });
 
-    // emotionMixCustomも初期非表示
-    formElements.emotionMixCustom.style.display = 'none';
+    // Initial prompt generation
+    generatePrompts();
+    updateSliderValue(formElements.bodySize, formElements.bodySizeValue, sliderLabels);
+    updateSliderValue(formElements.breastSize, formElements.breastSizeValue, breastSizeLabels);
+    updateSliderValue(formElements.personalityLevel, formElements.personalityLevelValue, personalityLabels);
 });

@@ -234,3 +234,58 @@ footer nav ul li a:visited {
 footer nav ul li a:hover {
     text-decoration: underline;
 }
+
+.share-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.twitter-share-button svg {
+    width: 32px; /* アイコンのサイズを大きくする */
+    height: 32px;
+    fill: #1DA1F2; /* アイコンの色 */
+    transition: fill 0.3s;
+}
+
+.twitter-share-button:hover svg {
+    fill: #0c85d0; /* ホバー時の色 */
+}
+
+.accordion-header {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-header::after {
+    content: '+';
+    font-size: 1.2em;
+    color: #777;
+}
+
+.accordion-header.active::after {
+    content: '-';
+}
+
+.accordion-content {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    display: none;
+}
+
+#reset-form {
+    background-color: #dc3545;
+}
+
+#reset-form:hover {
+    background-color: #c82333;
+}
